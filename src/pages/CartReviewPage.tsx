@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Trash2, MinusCircle, PlusCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { CartItem } from '@/types'; // Ensure CartItem is imported if not already
 
 const CartReviewPage = () => {
   const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
@@ -14,9 +15,19 @@ const CartReviewPage = () => {
   const handleConfirmOrder = () => {
     // In a real app, this would send the order to a backend
     console.log("Order confirmed:", cartItems, "Total:", totalPrice);
-    // For now, just navigate to confirmation and clear cart
-    navigate('/confirmation');
-    // clearCart(); // We might want to clear cart after confirmation success
+    
+    // Generate a mock order number here to pass it along
+    const orderNumber = Math.floor(Math.random() * 90000) + 10000;
+
+    // Pass cartItems, totalPrice, and orderNumber via route state
+    navigate('/confirmation', { 
+      state: { 
+        items: cartItems, 
+        total: totalPrice,
+        orderNumber: orderNumber 
+      } 
+    });
+    // The cart is cleared in OrderConfirmationPage's useEffect
   };
 
 
