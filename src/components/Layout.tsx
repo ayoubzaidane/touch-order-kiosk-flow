@@ -1,7 +1,7 @@
 
 import React, { ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Home, ShoppingCart, UtensilsCrossed } from 'lucide-react';
+import { Home, ShoppingCart, UtensilsCrossed, ArrowLeft } from 'lucide-react'; // Added ArrowLeft
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 
@@ -24,12 +24,12 @@ const Layout = ({ children, showBackButton = false, showCartButton = true, showH
         <nav className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
             {showBackButton && (
-              <Button variant="outline" size="icon" onClick={() => navigate(-1)}>
-                <Home className="h-5 w-5" />
+              <Button variant="outline" size="icon" onClick={() => navigate(-1)} aria-label="Go back">
+                <ArrowLeft className="h-5 w-5" /> {/* Changed icon to ArrowLeft */}
               </Button>
             )}
              {showHomeButton && (
-              <Button variant="outline" size="icon" onClick={() => navigate('/')}>
+              <Button variant="outline" size="icon" onClick={() => navigate('/')} aria-label="Go to homepage">
                 <Home className="h-5 w-5" />
               </Button>
             )}
