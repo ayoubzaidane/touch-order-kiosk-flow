@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { Order, CartItem } from '@/types'; // Assuming Order and CartItem types are defined
@@ -45,11 +44,21 @@ const KDSPage = () => {
         setOrders(prevOrders => [...newOrders, ...prevOrders].sort((a,b) => b.timestamp.getTime() - a.timestamp.getTime()));
       }
       // Simulate some orders completing
-      setOrders(prevOrders => prevOrders.map(o => {
-        if (o.status === 'preparing' && Math.random() > 0.8) return {...o, status: 'ready'};
-        if (o.status === 'pending' && Math.random() > 0.7) return {...o, status: 'preparing'};
-        return o;
-      }).filter(o => o.status !== 'completed' || (Date.now() - o.timestamp.getTime()) < 5 * 60000)); // Remove completed orders older than 5 mins
+      setOrders(prevOrders =>
+        prevOrders
+          .map(o => {
+            if (o.status === 'preparing' && Math.random() > 0.8) {
+              const newStatus: Order['status'] = 'ready';
+              return { ...o, status: newStatus };
+            }
+            if (o.status === 'pending' && Math.random() > 0.7) {
+              const newStatus: Order['status'] = 'preparing';
+              return { ...o, status: newStatus };
+            }
+            return o;
+          })
+          .filter(o => o.status !== 'completed' || (Date.now() - o.timestamp.getTime()) < 5 * 60000) // Remove completed orders older than 5 mins
+      );
     }, 5000); // Check for new orders every 5 seconds
 
     return () => clearInterval(intervalId);
