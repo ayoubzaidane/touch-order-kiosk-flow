@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const MenuCategoriesPage = () => {
   return (
-    <Layout>
+    <Layout showKdsButton={false}>
       <h1 className="text-4xl font-bold mb-8 text-center text-orange-600">Menu Categories</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {categories.map((category) => (
@@ -28,3 +28,4 @@ const MenuCategoriesPage = () => {
 };
 
 export default MenuCategoriesPage;
+
